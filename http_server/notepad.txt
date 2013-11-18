@@ -1,0 +1,2 @@
+MiddleWare
+In general, middleware components are pieces that the programmer can stack together. When Connect receives an HTTP request, the middleware engine calls each of these components in order. Any of these components has access to the request object, which means that they can parse some headers and buffer and parse the request body. They can also change the response headers, write a part of the body, or end the response.

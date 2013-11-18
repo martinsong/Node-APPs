@@ -1,0 +1,33 @@
+PUT /server_app.js
+{ 'user-agent': 'curl/7.24.0 (x86_64-apple-darwin12.0) libcurl/7.24.0 OpenSSL/0.9.8y zlib/1.2.5',
+  host: 'localhost:4001',
+  accept: '*/*',
+  'content-length': '580',
+  expect: '100-continue' }
+var connect = require('connect');
+
+// var errorCreator = require('./error_creator');
+var saveRequest = require('./save_request');
+var writeHeader = require('./write_header');
+var replyText = require('./reply_text');
+var errorHandler = require('./error_handler');
+
+var app = connect();
+
+//setup logger middleware
+var format = ':method :url - :status - :response-time ms'
+app.use(connect.logger(format));
+
+app.use(
+	// errorCreator(),
+	saveRequest(__dirname + '/requests'),
+	writeHeader('X-Powered-By', 'Node'),
+	replyText('Hello World!'),
+	errorHandler()
+);
+
+
+
+app.listen(4001);
+
+
